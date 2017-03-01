@@ -99,9 +99,9 @@ class Filename(object):
     :type escape: str
     """
     _root = attr.ib()
-    folders = attr.ib(default=['tokenised', 'folder'],
+    folders = attr.ib(default=attr.Factory(list),
                       validator=attr.validators.instance_of(list))
-    base = attr.ib(default=['untitled', 'file'],
+    base = attr.ib(default=attr.Factory(list),
                    validator=attr.validators.instance_of(list))
     separator = attr.ib(default='_',
                         validator=attr.validators.instance_of(str))
