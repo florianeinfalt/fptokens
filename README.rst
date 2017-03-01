@@ -19,7 +19,7 @@ A library for tokenisable filename paths
 `Full Documentation`_
 
 Installation
-============
+------------
 
 To install ``fptokens``, type:
 
@@ -28,7 +28,7 @@ To install ``fptokens``, type:
     $ pip install fptokens
 
 Getting Started
-===============
+---------------
 
 To get started with ``fptokens``, type:
 
