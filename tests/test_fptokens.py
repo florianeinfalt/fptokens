@@ -30,7 +30,7 @@ def test_tokens(tokens):
     assert tokens[0] != tokens[2]
     assert tokens[0] != tokens[3]
     assert tokens[0].name == 'token'
-    assert not tokens[0] == True
+    assert tokens[0] != True
 
 
 def test_filename_init(tmpdir):
@@ -83,11 +83,17 @@ def test_parsing(filename):
     assert all([token for token in filename.tokens if isinstance(token,
         fpt.Token)])
 
+
 def test_second_parsing(filename):
     filename.parse()
     assert len(filename.tokens) == 2
     assert all([token for token in filename.tokens if isinstance(token,
         fpt.Token)])
+
+
+def test_make_invalid(filename):
+    with pytest.raises(ValueError):
+        filename.make()
 
 
 def test_parsing_invalid(tmpdir):

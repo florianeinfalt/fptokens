@@ -182,6 +182,9 @@ class Filename(object):
 
     def make(self):
         """Create the filename's location if it does not exist."""
+        if any([token for token in self.folders if isinstance(token, Token)]):
+            raise ValueError('Replace tokens with string values '
+                             'to create folders')
         self.dirname.makedirs_p()
 
     def parse(self):
