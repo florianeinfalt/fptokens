@@ -63,7 +63,7 @@ To get the results of the parsing, type:
 The list of tokens could now be used to create permutations of the tokenised
 file name for example for batch output of image assets.
 
-ONce tokens have been replaced with real-world data to create permutations,
+Once tokens have been replaced with real-world data to create permutations,
 the relevant folders can be created by typing:
 
 .. code-block:: python
