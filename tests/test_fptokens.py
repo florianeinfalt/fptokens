@@ -102,3 +102,32 @@ def test_parsing_invalid(tmpdir):
                       base=['this', 'file', '$token2$'])
     with pytest.raises(ValueError):
         fp.parse()
+
+
+def test_permutations_invalid(tmpdir, data_invalid):
+    fp = fpt.Filename(root=tmpdir,
+                      folders=['assets', '$sizes$', '$colors$'],
+                      base=['untitled', '$sizes$', '$colors$'])
+    assert not fp.tokens
+    with pytest.raises(fpt.TokenError):
+        for perm in fp.resolve():
+            perm
+    fp.parse()
+    with pytest.raises(fpt.TokenError):
+        for perm in fp.resolve(**data_invalid):
+            perm
+
+
+def test_permutations(tmpdir, data, results):
+    fp = fpt.Filename(root=tmpdir,
+                      folders=['assets', '$sizes$', '$colors$'],
+                      base=['untitled', '$sizes$', '$colors$'])
+    fp.parse()
+    permutations = list(fp.resolve(**data))
+    assert len(permutations) == len(results)
+    for perm in permutations:
+        match = False
+        for result in results:
+            if perm.abspath.endswith(result):
+                match = True
+        assert match == True
