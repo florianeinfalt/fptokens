@@ -7,7 +7,7 @@ from itertools import product
 
 from path import Path
 
-__version__ = '0.1.0'
+__version__ = '0.1.1'
 __all__ = []
 
 
