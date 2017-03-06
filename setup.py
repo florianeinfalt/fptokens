@@ -10,7 +10,7 @@ test_requirements = ['pytest', 'pytest-cov',
 setup(
     name = 'fptokens',
     version = '0.1.1',
-    description='A library for tokenisable filename paths',
+    description='A library for tokenisable filenames',
     long_description=readme,
     url='https://github.com/florianeinfalt/fptokens',
     author='Florian Einfalt',

@@ -14,7 +14,7 @@ fptokens
 .. image:: https://travis-ci.org/florianeinfalt/fptokens.svg?branch=master
     :target: https://travis-ci.org/florianeinfalt/fptokens
 
-A library for tokenisable filename paths
+A library for tokenisable filenames
 
 `Full Documentation`_
 
@@ -83,3 +83,5 @@ the relevant folders can be created by typing:
 .. code-block:: python
 
     permutation.make()
+
+.. _Full Documentation: http://fptokens.readthedocs.io/en/latest/
