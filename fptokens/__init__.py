@@ -2,6 +2,9 @@ import os
 import re
 import attr
 
+from copy import deepcopy
+from itertools import product
+
 from path import Path
 
 __version__ = '0.1.0'
@@ -214,6 +217,48 @@ class Filename(object):
                     token = tokens[0]
                     base_components[component_idx] = Token(name=token,
                                                            escape=self.escape)
+
+    def _replace_tokens(self, permutation, permutation_fp):
+        """
+        Given a ``permutation`` (token_name, token_value) and a
+        ``permutation_fp``, replace all matching tokens with permutation values
+        and return the resulting :class:`~fptokens.Filename`.
+
+        :param permutation: Permutation (token_name, token_value)
+        :type permutation: tuple
+        :permutation_fp: :class:`~fptokens.Filename`, tokenised
+        :type permutation_fp: :class:`~fptokens.Filename`
+        :return: :class:`~fptokens.Filename` with replaced tokens
+        :rtype: :class:`~fptokens.Filename`
+        """
+        for components in (permutation_fp.folders, permutation_fp.base):
+            for comp_idx, comp in enumerate(components):
+                if isinstance(comp, Token):
+                    for token_name, token_value in permutation:
+                        if comp.name == token_name:
+                            components[comp_idx] = token_value
+        return permutation_fp
+
+    def resolve(self, **kwargs):
+        """
+        Given a set of \**kwargs, yield all possible permutations for the data
+        set provided. Raise :class:`~TokenError` if :class:`~fptokens.Filename`
+        does not haven tokens or the data provided does not match the tokens.
+
+        :params \**kwargs: Permutation data
+        """
+        if not self.tokens:
+            raise TokenError('Tokens required for resolve()')
+        tokens = self.tokens[:]
+        while tokens:
+            token = tokens.pop()
+            if token.name not in kwargs:
+                raise TokenError('Data missing for token {0}'.format(token))
+        perm_data = []
+        for token_name, token_data in kwargs.iteritems():
+            perm_data.append([(token_name, data) for data in token_data])
+        for permutation in product(*perm_data):
+            yield self._replace_tokens(permutation, deepcopy(self))
 
     def __key(self):
         return (self.root, self.folders, self.basename,
