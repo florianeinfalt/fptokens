@@ -203,7 +203,7 @@ class Filename(object):
         """
         Parse the filename's ``folders`` and ``base`` attributes, detect
         components that match the token pattern and replace these with
-        :class:`fptokens.Token` objects.
+        :class:`~fptokens.Token` objects.
         """
         for base_components in (self.folders, self.base):
             for component_idx, component in enumerate(base_components):
@@ -242,8 +242,9 @@ class Filename(object):
     def resolve(self, **kwargs):
         """
         Given a set of \**kwargs, yield all possible permutations for the data
-        set provided. Raise :class:`~TokenError` if :class:`~fptokens.Filename`
-        does not haven tokens or the data provided does not match the tokens.
+        set provided. Raise :class:`~fptokens.TokenError` if
+        :class:`~fptokens.Filename` does not haven tokens or the data provided
+        does not match the tokens.
 
         :params \**kwargs: Permutation data
         """
