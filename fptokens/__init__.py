@@ -13,7 +13,7 @@ __all__ = []
 
 class TokenError(ValueError):
     """
-    Exception indicating an error related to UUIDs,
+    Exception indicating an error related to Tokens,
     inherits from :class:`ValueError`.
     """
     def __init__(self, message):
