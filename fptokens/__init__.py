@@ -8,6 +8,15 @@ __version__ = '0.1.0'
 __all__ = []
 
 
+class TokenError(ValueError):
+    """
+    Exception indicating an error related to UUIDs,
+    inherits from :class:`ValueError`.
+    """
+    def __init__(self, message):
+        super(TokenError, self).__init__(message)
+
+
 @attr.s(cmp=False, hash=False, repr=False)
 class Token(object):
     """
@@ -59,7 +68,7 @@ class Token(object):
         pattern = r'\{esc}(\w+)\{esc}'.format(esc=self.escape)
         match = re.match(pattern, token)
         if not match:
-            raise ValueError('Invalid token')
+            raise TokenError('Invalid token')
         return match.group(1)
 
     def __key(self):
@@ -183,7 +192,7 @@ class Filename(object):
     def make(self):
         """Create the filename's location if it does not exist."""
         if any([token for token in self.folders if isinstance(token, Token)]):
-            raise ValueError('Replace tokens with string values '
+            raise TokenError('Replace tokens with string values '
                              'to create folders')
         self.dirname.makedirs_p()
 
@@ -201,7 +210,7 @@ class Filename(object):
                 tokens = re.findall(pattern, component)
                 if tokens:
                     if len(tokens) > 1:
-                        raise ValueError('Limit: one token per component.')
+                        raise TokenError('Limit: one token per component.')
                     token = tokens[0]
                     base_components[component_idx] = Token(name=token,
                                                            escape=self.escape)
