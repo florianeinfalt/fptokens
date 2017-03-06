@@ -58,7 +58,7 @@ To get the results of the parsing, type:
 .. code-block:: python
 
     print filename.tokens
-    [<Token: $color$>]
+    # [<Token: $color$>]
 
 The list of tokens could now be used to create permutations of the tokenised
 file name for example for batch output of image assets.
@@ -71,7 +71,6 @@ tokens with the token name as the argument name:
     for permutation in filename.resolve(colors=['white', 'black', 'red', 'blue']):
         # do something with the permutation
         print permutation.abspath
-    # prints
     # /Users/demo/Desktop/assets/white/asset_white_1200px.jpg
     # /Users/demo/Desktop/assets/black/asset_black_1200px.jpg
     # /Users/demo/Desktop/assets/red/asset_red_1200px.jpg
